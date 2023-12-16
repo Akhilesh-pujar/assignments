@@ -5,6 +5,15 @@
  */
 
 function sleep(milliseconds) {
+    return new Promise(function(resolve){
+        setTimeout(function (){
+            resolve()
+        },milliseconds)
+    })
 }
+function ondone(){
+ console.log("after delay")
+}
+sleep().then(ondone)
 
 module.exports = sleep;
