@@ -12,7 +12,7 @@ return false;
 
 let freq = new Array(26).fill(0);
 
-for(let i = 0; i< str1.length; i++){
+for(let i = 0; i < str1.length; i++){
     freq[str1.charCodeAt(i) - 'a'.charCodeAt(0)]++;
     freq[str2.charCodeAt(i) - 'a'.charCodeAt(0)]--;
 
