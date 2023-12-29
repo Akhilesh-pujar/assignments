@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express();
+const {Admin} = require("../db")
 
 app.use(express.json());
 
@@ -7,13 +8,24 @@ app.use(express.json());
 function adminMiddleware(req, res, next) {
     // Implement admin auth logic
     // You need to check the headers and validate the admin from the admin DB. Check readme for the exact headers to be expected
-    app.post("admin/register",async(req,res)=>{
-        const{username, password} = req.body;
-        if(username === "admin" && password === "admin"){
-            res.json({msg:"yes this user is admin"})
-        }
+  
+        const username= req.headers.username;
+        const password = req.headers.password;
+         Admin.findOne({
+            username:username,
+            password:password
 
-    })
+         })
+         .then(function(value){ //value mai apan username aur password bhej rahe hai
+           if(value){
+            next();
+           }
+           else{
+            res.status(403).json({msg:"Admin does not exist"})
+           }
+         })
+
+
 }
 
 module.exports = adminMiddleware;
